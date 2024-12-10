@@ -6,7 +6,7 @@
       "database": 2,
       "type": "native",
       "native": {
-        "query": "SELECT distinct(district_name) \nFROM ${config.projects} \nWHERE state_name = 'STATENAME'",
+        "query": "SELECT distinct(district_name) \nFROM ${config.projects} \nWHERE state_id = 'STATEID'",
         "template-tags": {
         }
       }

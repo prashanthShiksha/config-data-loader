@@ -6,7 +6,7 @@
       "database": 2,
       "type": "native",
       "native": {
-        "query": "SELECT\n  COUNT(DISTINCT created_by) AS no_of_users_started\nFROM\n  ${config.projects}\nWHERE\n  1 = 1\n  AND status = 'started' \n  [[AND state_id = (\n        SELECT state_id\n        FROM ${config.projects}\n        WHERE {{state_param}}\n        LIMIT 1\n       )\n  ]]\n  [[AND district_id = (\n        SELECT district_id\n        FROM ${config.projects}\n        WHERE {{district_param}} \n        LIMIT 1\n        )\n   ]] \n   \n  [[AND program_id = (\n        SELECT ${config.projects}.program_id\n        FROM ${config.projects}\n        JOIN ${config.solutions} ON ${config.projects}.solution_id = ${config.solutions}.solution_id\n        WHERE {{program_param}} \n        LIMIT 1 )\n   ]]",
+        "query": "SELECT\n  COUNT(DISTINCT created_by) AS no_of_users_started\nFROM\n  ${config.projects}\nWHERE\n  1 = 1\n  AND status = 'started' \n  [[AND ${config.projects}.state_id = (\n        SELECT state_id\n        FROM ${config.projects}\n        WHERE {{state_param}}\n        LIMIT 1\n       )\n  ]]\n  [[AND ${config.projects}.district_id = (\n        SELECT district_id\n        FROM ${config.projects}\n        WHERE {{district_param}} \n        LIMIT 1\n        )\n   ]] \n   \n  [[AND ${config.projects}.program_id = (\n        SELECT ${config.projects}.program_id\n        FROM ${config.projects}\n        JOIN ${config.solutions} ON ${config.projects}.solution_id = ${config.solutions}.solution_id\n        WHERE {{program_param}} \n        LIMIT 1 )\n   ]]",
         "template-tags": {
           "state_param": {
             "type": "dimension",
