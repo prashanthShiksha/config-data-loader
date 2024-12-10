@@ -1,6 +1,6 @@
 {
   "questionCard": {
-    "name": "Status of improvement programs",
+    "name": "Status of Improvement: Program wise",
     "collection_id": 644,
     "dataset_query": {
       "database": 2,
@@ -172,7 +172,7 @@
     "col": 0,
     "row": 8,
     "size_x": 24,
-    "size_y": 6,
+    "size_y": 10,
     "visualization_settings": {}
   }
 }

@@ -1,6 +1,6 @@
 {
   "questionCard": {
-    "name": "Improvement projects by district",
+    "name": "Distric-wise Consumption Overview",
     "collection_id": 644,
     "dataset_query": {
       "database": 2,
@@ -140,9 +140,9 @@
       }
     ],
     "col": 0,
-    "row": 57,
+    "row": 63,
     "size_x": 24,
-    "size_y": 9,
+    "size_y": 10,
     "visualization_settings": {}
   }
 }

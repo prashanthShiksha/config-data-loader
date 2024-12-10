@@ -11,7 +11,7 @@
       "card_id": 2578,
       "value_field": [
         "field",
-        "statename",
+        "state_name",
         {
           "base-type": "type/Text"
         }

@@ -12,7 +12,7 @@
     },
     "display": "scalar",
     "visualization_settings": {
-      "table.pivot_column": "programname"
+      "table.pivot_column": "program_name"
     },
     "parameters": []
   }

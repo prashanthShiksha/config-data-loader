@@ -1,6 +1,6 @@
 {
   "questionCard": {
-    "name": "No. of certificates issued",
+    "name": "No. of certificates: Issued",
     "collection_id": 658,
     "dataset_query": {
       "database": 2,

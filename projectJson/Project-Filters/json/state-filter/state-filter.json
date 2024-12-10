@@ -13,7 +13,7 @@
     },
     "display": "scalar",
     "visualization_settings": {
-      "table.pivot_column": "districtname"
+      "table.pivot_column": "district_name"
     },
     "parameters": []
   }

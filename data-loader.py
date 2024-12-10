@@ -4,9 +4,9 @@ import psycopg2
 
 # Database connection parameters
 DB_CONFIG = {
-    "dbname": "test2",
-    "user": "root",
-    "password": "root",
+    "dbname": "test-1",
+    "user": "postgres",
+    "password": "postgres",
     "host": "localhost",
     "port": "5432"
 }
@@ -16,7 +16,7 @@ def create_table():
         conn = psycopg2.connect(**DB_CONFIG)
         with conn.cursor() as cursor:
             query = """
-                CREATE TABLE IF NOT EXISTS local_report_config2 (
+                CREATE TABLE IF NOT EXISTS local_report_config (
                 id SERIAL PRIMARY KEY,
                 report_name TEXT NOT NULL,
                 question_type TEXT NOT NULL,
@@ -36,7 +36,7 @@ def insert_into_table(conn, report_name, question_type, query):
     try:
         with conn.cursor() as cursor:
             insert_query = """
-                INSERT INTO local_report_config2 (report_name, question_type, config)
+                INSERT INTO local_report_config (report_name, question_type, config)
                 VALUES (%s, %s, %s);
             """
             cursor.execute(insert_query, (report_name, question_type, json.dumps(query)))
@@ -97,6 +97,6 @@ def process_folders(main_folder_path):
             conn.close()
 
 # Main folder path
-main_folder = "/home/user1/Documents/meta-dash-python/projectJson"
+main_folder = "/Users/user/Documents/shikshalokam/elevate-analytics/temp/config-data-loader/projectJson"
 create_table()
 process_folders(main_folder)
