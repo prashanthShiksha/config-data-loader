@@ -4,19 +4,21 @@ import psycopg2
 
 # Database connection parameters
 DB_CONFIG = {
-    "dbname": "test-1",
-    "user": "postgres",
-    "password": "postgres",
+    "dbname": "test2",
+    "user": "root",
+    "password": "root",
     "host": "localhost",
     "port": "5432"
 }
 
-def create_table():
+table_name = "dev_report_config"
+
+def create_table(table_name):
     try :
         conn = psycopg2.connect(**DB_CONFIG)
         with conn.cursor() as cursor:
-            query = """
-                CREATE TABLE IF NOT EXISTS local_report_config (
+            query = f"""
+                CREATE TABLE IF NOT EXISTS {table_name} (
                 id SERIAL PRIMARY KEY,
                 report_name TEXT NOT NULL,
                 question_type TEXT NOT NULL,
@@ -29,14 +31,14 @@ def create_table():
         print(f"Error inserting data: {e}")
         conn.rollback()
 
-def insert_into_table(conn, report_name, question_type, query):
+def insert_into_table(conn, report_name, question_type, query, table_name):
     """
     Insert a record into the report_config table.
     """
     try:
         with conn.cursor() as cursor:
-            insert_query = """
-                INSERT INTO local_report_config (report_name, question_type, config)
+            insert_query = f"""
+                INSERT INTO {table_name} (report_name, question_type, config)
                 VALUES (%s, %s, %s);
             """
             cursor.execute(insert_query, (report_name, question_type, json.dumps(query)))
@@ -87,7 +89,7 @@ def process_folders(main_folder_path):
                             continue
                     
                     # Insert into the database
-                    insert_into_table(conn, report_name, query_type, query_data)
+                    insert_into_table(conn, report_name, query_type, query_data, table_name)
         
         print("All data processed successfully.")
     except Exception as e:
@@ -97,6 +99,6 @@ def process_folders(main_folder_path):
             conn.close()
 
 # Main folder path
-main_folder = "/Users/user/Documents/shikshalokam/elevate-analytics/temp/config-data-loader/projectJson"
-create_table()
+main_folder = "/home/user1/Documents/meta-dash-python/projectJson"
+create_table(table_name)
 process_folders(main_folder)
