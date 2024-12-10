@@ -1,6 +1,6 @@
 {
   "questionCard": {
-    "name": "Status of users state wise",
+    "name": "Status of users: State wise",
     "collection_id": 644,
     "dataset_query": {
       "database": 2,
@@ -165,9 +165,9 @@
       }
     ],
     "col": 0,
-    "row": 15,
+    "row": 18,
     "size_x": 24,
-    "size_y": 6,
+    "size_y": 10,
     "visualization_settings": {}
   }
 }

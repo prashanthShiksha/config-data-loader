@@ -12,7 +12,7 @@
         "card_id": 2578,
         "value_field": [
           "field",
-          "programname",
+          "program_name",
           {
             "base-type": "type/Text"
           }

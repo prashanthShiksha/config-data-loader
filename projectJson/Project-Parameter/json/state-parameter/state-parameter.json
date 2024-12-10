@@ -10,7 +10,7 @@
       "card_id": 2578,
       "value_field": [
         "field",
-        "districtname",
+        "district_name",
         {
           "base-type": "type/Text"
         }
