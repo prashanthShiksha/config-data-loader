@@ -1,12 +1,11 @@
 {
   "questionCard": {
-    "name": "No. of unique assigned projects on platform",
+    "name": "Submission status breakdown",
     "collection_id": 644,
     "dataset_query": {
       "database": 2,
       "type": "native",
       "native": {
-        "query": "SELECT\n  count(DISTINCT project_id)\nFROM\n  ${config.projects}\nWHERE 1 = 1\nAND project_id IS NOT NULL\n[[AND ${config.projects}.state_id = (\n        SELECT state_id\n        FROM ${config.projects}\n        WHERE {{state_param}}\n        LIMIT 1)\n  ]]\n  [[AND ${config.projects}.district_id = (\n        SELECT district_id\n        FROM ${config.projects}\n        WHERE {{district_param}} \n        LIMIT 1)\n  ]] \n  [[AND ${config.projects}.program_id = (\n        SELECT ${config.projects}.program_id\n        FROM ${config.projects}\n        JOIN ${config.solutions} ON ${config.projects}.solution_id = ${config.solutions}.solution_id\n        WHERE {{program_param}} \n        LIMIT 1 )\n   ]]\n[[AND ${config.projects}.block_id = (\n        SELECT block_id\n        FROM ${config.projects}\n        WHERE {{block_param}} \n        LIMIT 1\n        )\n   ]] \n   [[AND ${config.projects}.cluster_id = (\n        SELECT cluster_id\n        FROM ${config.projects}\n        WHERE {{cluster_param}} \n        LIMIT 1\n        )\n   ]]\n   [[AND ${config.projects}.org_id = (\n        SELECT org_id\n        FROM ${config.projects}\n        WHERE {{org_param}} \n        LIMIT 1\n        )\n   ]]",
         "template-tags": {
           "block_param": {
             "type": "dimension",
@@ -84,10 +83,14 @@
             "widget-type": "string/=",
             "options": null
           }
-        }
+        },
+        "query": "SELECT \n    ${config.projects}.status AS \"Project Status\",\n    COUNT(DISTINCT ${config.projects}.project_id) AS \"Total Projects\"\nFROM ${config.projects} \nJOIN ${config.solutions} ON ${config.projects}.solution_id = ${config.solutions}.solution_id\nWHERE 1 = 1\n  AND ${config.solutions}.program_name IS NOT NULL\n  [[AND ${config.projects}.state_id = (\n        SELECT state_id\n        FROM ${config.projects}\n        WHERE {{state_param}}\n        LIMIT 1)\n  ]]\n  [[AND ${config.projects}.district_id = (\n        SELECT district_id\n        FROM ${config.projects}\n        WHERE {{district_param}} \n        LIMIT 1)\n  ]]\n  [[AND ${config.projects}.program_id = (\n        SELECT ${config.projects}.program_id\n        FROM ${config.projects}\n        JOIN ${config.solutions} ON ${config.projects}.solution_id = ${config.solutions}.solution_id\n        WHERE {{program_param}} \n        LIMIT 1 )\n   ]]\n[[AND ${config.projects}.block_id = (\n        SELECT block_id\n        FROM ${config.projects}\n        WHERE {{block_param}} \n        LIMIT 1\n        )\n   ]] \n   [[AND ${config.projects}.cluster_id = (\n        SELECT cluster_id\n        FROM ${config.projects}\n        WHERE {{cluster_param}} \n        LIMIT 1\n        )\n   ]]\n   [[AND ${config.projects}.org_id = (\n        SELECT org_id\n        FROM ${config.projects}\n        WHERE {{org_param}} \n        LIMIT 1\n        )\n   ]]\nGROUP BY ${config.projects}.status\nORDER BY \"Total Projects\" DESC;\n"
       }
     },
-    "display": "scalar",
+    "parameter_mappings": [],
+    "display": "pie",
+    "entity_id": "gtUic0Rme4-4ifruV4Pd-",
+    "collection_preview": true,
     "visualization_settings": {},
     "parameters": [
       {
@@ -171,9 +174,9 @@
     ]
   },
   "dashCards": {
-    "card_id": 6939,
+    "card_id": 6937,
     "dashboard_tab_id": null,
-    "id": 14,
+    "id": 11,
     "parameter_mappings": [
       {
         "card_id": 8985,
@@ -242,10 +245,10 @@
         ]
       }
     ],
-    "col": 12,
-    "row": 78,
-    "size_x": 8,
-    "size_y": 3,
+    "col": 0,
+    "row": 8,
+    "size_x": 24,
+    "size_y": 10,
     "visualization_settings": {}
   }
 }

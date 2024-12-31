@@ -105,6 +105,6 @@ def process_folders(ext_main_folder_path):
             conn.close()
 
 # Main folder path
-main_folder = "/home/user1/Documents/meta-dash-python/projectJsonTest"
+main_folder = "/home/user1/Documents/meta-dash-python/projectJson"
 create_table(table_name)
 process_folders(main_folder)

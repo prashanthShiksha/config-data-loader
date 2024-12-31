@@ -1,12 +1,11 @@
 {
   "questionCard": {
-    "name": "No. of unique users consuming the projects",
+    "name": "Status of Improvement: Program wise",
     "collection_id": 644,
     "dataset_query": {
       "database": 2,
       "type": "native",
       "native": {
-        "query": "SELECT\n  count(DISTINCT created_by)\nFROM\n  ${config.projects}\nWHERE 1 = 1\nAND created_by IS NOT NULL\n[[AND ${config.projects}.state_id = (\n        SELECT state_id\n        FROM ${config.projects}\n        WHERE {{state_param}}\n        LIMIT 1)\n  ]]\n  [[AND ${config.projects}.district_id = (\n        SELECT district_id\n        FROM ${config.projects}\n        WHERE {{district_param}} \n        LIMIT 1)\n  ]] \n  [[AND ${config.projects}.program_id = (\n        SELECT ${config.projects}.program_id\n        FROM ${config.projects}\n        JOIN ${config.solutions} ON ${config.projects}.solution_id = ${config.solutions}.solution_id\n        WHERE {{program_param}} \n        LIMIT 1 )\n   ]]\n[[AND ${config.projects}.block_id = (\n        SELECT block_id\n        FROM ${config.projects}\n        WHERE {{block_param}} \n        LIMIT 1\n        )\n   ]] \n   [[AND ${config.projects}.cluster_id = (\n        SELECT cluster_id\n        FROM ${config.projects}\n        WHERE {{cluster_param}} \n        LIMIT 1\n        )\n   ]]\n   [[AND ${config.projects}.org_id = (\n        SELECT org_id\n        FROM ${config.projects}\n        WHERE {{org_param}} \n        LIMIT 1\n        )\n   ]]",
         "template-tags": {
           "block_param": {
             "type": "dimension",
@@ -84,11 +83,49 @@
             "widget-type": "string/=",
             "options": null
           }
-        }
+        },
+        "query": "SELECT DISTINCT(${config.solutions}.program_name) AS \"Programs\", \nCOUNT(DISTINCT CASE WHEN ${config.projects}.status = 'started' THEN ${config.projects}.project_id END) AS \"Started Projects\", \nCOUNT(DISTINCT CASE WHEN ${config.projects}.status = 'inProgress' THEN ${config.projects}.project_id END) AS \"In Progress Projects\", \nCOUNT(DISTINCT CASE WHEN ${config.projects}.status = 'submitted' THEN ${config.projects}.project_id END) AS \"Submitted Projects\", \nCOUNT(DISTINCT ${config.projects}.project_id) AS \"Total Projects\" \nFROM ${config.projects} \njoin ${config.solutions} on ${config.projects}.solution_id = ${config.solutions}.solution_id\nWHERE 1 = 1\nAND ${config.solutions}.program_name is not null\n[[AND ${config.projects}.state_id = (\n        SELECT state_id\n        FROM ${config.projects}\n        WHERE {{state_param}}\n        LIMIT 1)\n  ]]\n  [[AND ${config.projects}.district_id = (\n        SELECT district_id\n        FROM ${config.projects}\n        WHERE {{district_param}} \n        LIMIT 1)\n  ]] \n  [[AND ${config.projects}.program_id = (\n        SELECT ${config.projects}.program_id\n        FROM ${config.projects}\n        JOIN ${config.solutions} ON ${config.projects}.solution_id = ${config.solutions}.solution_id\n        WHERE {{program_param}} \n        LIMIT 1 )\n   ]]\n[[AND ${config.projects}.block_id = (\n        SELECT block_id\n        FROM ${config.projects}\n        WHERE {{block_param}} \n        LIMIT 1\n        )\n   ]] \n   [[AND ${config.projects}.cluster_id = (\n        SELECT cluster_id\n        FROM ${config.projects}\n        WHERE {{cluster_param}} \n        LIMIT 1\n        )\n   ]]\n   [[AND ${config.projects}.org_id = (\n        SELECT org_id\n        FROM ${config.projects}\n        WHERE {{org_param}} \n        LIMIT 1\n        )\n   ]]\nGROUP BY ${config.solutions}.program_name\nORDER BY \"Total Projects\" DESC;"
       }
     },
-    "display": "scalar",
-    "visualization_settings": {},
+    "display": "bar",
+    "visualization_settings": {
+      "graph.show_goal": false,
+      "graph.y_axis.title_text": "No. of Improvements",
+      "graph.show_values": false,
+      "graph.x_axis.axis_enabled": true,
+      "graph.y_axis.scale": "linear",
+      "graph.metrics": [
+        "Started Projects",
+        "In Progress Projects",
+        "Submitted Projects"
+      ],
+      "graph.y_axis.axis_enabled": true,
+      "graph.label_value_formatting": "auto",
+      "series_settings": {
+        "In Progress Projects": {
+          "color": "#509EE3"
+        },
+        "Started": {
+          "color": "#F7C4C4"
+        },
+        "Submitted": {
+          "color": "#A7D07C"
+        },
+        "In Progress": {
+          "color": "#FBE499"
+        },
+        "Submitted Projects": {
+          "color": "#F2A86F"
+        },
+        "Started Projects": {
+          "color": "#88BF4D"
+        }
+      },
+      "graph.dimensions": [
+        "Programs"
+      ],
+      "stackable.stack_type": "stacked"
+    },
     "parameters": [
       {
         "id": "bee6b62d-7188-4612-8a4e-d4395d31fcfe",
@@ -171,9 +208,9 @@
     ]
   },
   "dashCards": {
-    "card_id": 6941,
+    "card_id": 6930,
     "dashboard_tab_id": null,
-    "id": 16,
+    "id": 4,
     "parameter_mappings": [
       {
         "card_id": 8985,
@@ -243,9 +280,9 @@
       }
     ],
     "col": 0,
-    "row": 75,
-    "size_x": 8,
-    "size_y": 3,
+    "row": 18,
+    "size_x": 24,
+    "size_y": 10,
     "visualization_settings": {}
   }
 }

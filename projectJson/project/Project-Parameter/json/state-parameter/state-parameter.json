@@ -23,6 +23,7 @@
     "id": "6e5c08dc",
     "type": "string/=",
     "sectionId": "string",
+    "isMultiSelect": false,
     "filteringParameters": [
       "c32c8fc5",
       "74a10335",
@@ -37,6 +38,7 @@
     "id": "efa886d3",
     "type": "string/=",
     "sectionId": "string",
+    "isMultiSelect": false,
     "filteringParameters": [
       "c32c8fc5",
       "74a10335",
@@ -66,6 +68,7 @@
     "id": "5088d3e5",
     "type": "string/=",
     "sectionId": "string",
+    "isMultiSelect": false,
     "filteringParameters": [
       "c32c8fc5",
       "74a10335",
