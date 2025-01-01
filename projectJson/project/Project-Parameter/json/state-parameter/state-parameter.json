@@ -6,6 +6,7 @@
     "type": "string/=",
     "sectionId": "location",
     "values_source_type": "card",
+    "isMultiSelect": false,
     "values_source_config": {
       "card_id": 2578,
       "value_field": [
